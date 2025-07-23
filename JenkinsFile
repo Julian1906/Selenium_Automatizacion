@@ -13,4 +13,4 @@ stage('Install Maven manually') {
             }
         }
     }
-}
+
