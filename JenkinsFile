@@ -22,7 +22,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                checkout scm git 'https://github.com/Julian1906/Selenium_Automatizacion.git'
+                checkout scm
             }
         }
 
