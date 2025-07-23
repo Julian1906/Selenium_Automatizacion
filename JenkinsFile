@@ -58,7 +58,7 @@ pipeline {
 
         failure {
             // Acciones si el pipeline falla
-            echo '¡Las pruebas fal
+             echo '¡Las pruebas fallaron! Revisa los logs.'
         }
     }
 }
