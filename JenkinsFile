@@ -19,6 +19,8 @@ pipeline {
    
         stage('Build') {
             steps {
+                 // Instalacion de Maven
+                    sh 'mvn clean install'
                 // Ejecutar Maven para compilar el proyecto
                 script {
                     sh "'${MAVEN_HOME}/bin/mvn' clean install"
