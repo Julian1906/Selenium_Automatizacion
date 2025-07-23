@@ -1,27 +1,15 @@
 pipeline {
     agent any
 
-    environment {
-        MAVEN_HOME = tool name: 'Maven_3.9.5', type: 'hudson.tasks.Maven$MavenInstallation'
-        PATH = "${env.MAVEN_HOME}/bin:${env.PATH}"
-    }
-
-    stages {
-        stage('Checkout') {
+stage('Install Maven manually') {
             steps {
-                checkout scm
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'mvn clean install'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                sh 'mvn test'
+                sh '''
+                    wget https://archive.apache.org/dist/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
+                    tar -xvzf apache-maven-3.9.5-bin.tar.gz
+                    export MAVEN_HOME=$PWD/apache-maven-3.9.5
+                    export PATH=$MAVEN_HOME/bin:$PATH
+                    mvn -v
+                '''
             }
         }
     }
