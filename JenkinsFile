@@ -1,60 +1,28 @@
 pipeline {
     agent any
 
+    environment {
+        MAVEN_HOME = tool name: 'Maven_3.9.5', type: 'hudson.tasks.Maven$MavenInstallation'
+        PATH = "${env.MAVEN_HOME}/bin:${env.PATH}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                // Clonar el repositorio de Git
-                git 'https://github.com/Julian1906/Selenium_Automatizacion.git'
+                checkout scm
             }
         }
 
-   
         stage('Build') {
             steps {
-                 // Instalacion de Maven
-                    sh 'mvn clean install'
-                // Ejecutar Maven para compilar el proyecto
-                script {
-                    sh "'${MAVEN_HOME}/bin/mvn' clean install"
-                }
+                sh 'mvn clean install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                // Ejecutar pruebas Selenium con Maven o Gradle
-                script {
-                    sh "'${MAVEN_HOME}/bin/mvn' test"
-                }
+                sh 'mvn test'
             }
         }
-
-        stage('Archive Test Results') {
-            steps {
-                // Archivar los resultados de las pruebas para su visualización en Jenkins
-                junit '**/target/test-*.xml' // Suponiendo que Maven genera este reporte
-            }
-        }
-
-     
-        }
     }
-
-    post {
-        always {
-            // Este bloque siempre se ejecuta, incluso si hay un error
-            echo 'El pipeline ha finalizado.'
-        }
-
-        success {
-            // Acciones si el pipeline es exitoso
-            echo 'Las pruebas han pasado correctamente.'
-        }
-
-        failure {
-            // Acciones si el pipeline falla
-             echo '¡Las pruebas fallaron! Revisa los logs.'
-        }
-    }
-
+}
