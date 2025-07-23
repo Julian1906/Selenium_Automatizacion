@@ -1,7 +1,8 @@
 pipeline {
     agent any
 
-stage('Install Maven manually') {
+    stages {
+        stage('Install Maven manually') {
             steps {
                 sh '''
                     wget https://archive.apache.org/dist/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
@@ -13,4 +14,5 @@ stage('Install Maven manually') {
             }
         }
     }
+}
 
