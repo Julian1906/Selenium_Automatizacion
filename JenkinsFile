@@ -61,4 +61,4 @@ pipeline {
              echo '¡Las pruebas fallaron! Revisa los logs.'
         }
     }
-}
+
