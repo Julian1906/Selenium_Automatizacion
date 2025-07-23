@@ -7,7 +7,7 @@ pipeline {
 
 stage('Install Maven manually') {
             steps {
-                sh '''
+                bat '''
                     wget https://archive.apache.org/dist/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
                     tar -xvzf apache-maven-3.9.5-bin.tar.gz
                     export MAVEN_HOME=$PWD/apache-maven-3.9.5
