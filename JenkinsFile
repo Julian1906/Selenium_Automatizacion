@@ -1,17 +1,21 @@
 pipeline {
     agent any
 
-    environment {
-        // Define las herramientas instaladas en Jenkins
-        MAVEN_HOME = tool name: 'Maven_3.9.5', type: 'hudson.tasks.Maven$MavenInstallation'
-        JAVA_HOME = tool name: 'JDK8', type: 'hudson.model.JDK'
 
-        // Añade Maven y Java al PATH
-        PATH = "${MAVEN_HOME}\\bin;${JAVA_HOME}\\bin;${env.PATH}"
-    }
 
     stages {
 
+stage('Install Maven manually') {
+            steps {
+                sh '''
+                    wget https://archive.apache.org/dist/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
+                    tar -xvzf apache-maven-3.9.5-bin.tar.gz
+                    export MAVEN_HOME=$PWD/apache-maven-3.9.5
+                    export PATH=$MAVEN_HOME/bin:$PATH
+                    mvn -v
+                '''
+            }
+        }
         stage('Verificar herramientas') {
             steps {
                 bat 'echo Verificando herramientas...'
