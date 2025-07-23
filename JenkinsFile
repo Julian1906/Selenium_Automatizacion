@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Definir variables de entorno si es necesario
         SELENIUM_VERSION = '3.14.0' // Asegúrate de usar la versión correcta
-        MAVEN_HOME = '/usr/share/maven'
+        MAVEN_HOME = tool name: 'Maven_4.0.0', type: 'hudson.tasks.Maven$MavenInstallation'
     }
 
     stages {
